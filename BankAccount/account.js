@@ -53,18 +53,16 @@ class AdultAccount extends AccountBase {
 }
 
 class StudentAccount extends AccountBase {
-    #balance
-    #created
 
     static ACCOUNT_LIMIT = 4E5;
 
 
     deposit(amount) {
-        if ((this.#balance + amount > this.ACCOUNT_LIMIT)) {
+        if ((this.balance + amount > this.ACCOUNT_LIMIT)) {
             console.log("Account limit exceeded.")
         } else {
-            this.#balance += amount
-            this.#created = new Date()
+            this.balance += amount
+            this.created = new Date()
             console.log("Deposit succesful")
         }
 
@@ -83,7 +81,6 @@ class Bank {
     create_adult_account(account_name, initial_deposit) {
         const acct = new AdultAccount(account_name, this.#name, initial_deposit)
         this.#accounts.push(acct)
-        // console.log(this.#accounts[0].info())
         return acct
     }
 
