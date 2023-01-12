@@ -72,45 +72,57 @@ class Controller:
         self.view.display(data)
 
 class Application:
-    """
-    Add application logic here
-    """
-
-    pass
-
-
-def info():
-    print("Welcome to TodoMVC")
-    print("1. To display todos")
-    print("2. To add todo")
-    print("3. To delete todo")
-    print("4. To display this info")
-    print("0. To exit")
-
-m = Model()
-v = View()
-c = Controller(m, v)
-
-info()
-
-n = int(input("Select an option: "))
-
-
-while n != 0:
-    if n == 1:
-        c.list_data()
-    elif n == 2:
-        descr = input("Add Description: ")
-        status = input("Add Status: ")
-        status = False if status == "False" else True 
-        todo = Todo(id=None, descr=descr, status=status)
-        c.add_data(todo)
-
-    elif n == 3:
-        id = input("Select Id: ")
-        c.remove_data(int(id))
     
-    elif n == 4:
-        info()
-    
-    n = int(input("Select another option: "))
+    def __init__(self, model: Model, view: View, ctrl: Controller) -> None:
+        self.m = model
+        self.v = view
+        self.c = ctrl
+
+ 
+    def main_loop(self):
+        self.info()
+
+        n = int(input("Select an option: "))
+
+
+        while n != 0:
+            if n == 1:
+                self.c.list_data()
+
+            elif n == 2:
+                descr = input("Add Description: ")
+                status = input("Add Status: ")
+                status = False if status == "False" else True 
+                todo = Todo(id=None, descr=descr, status=status)
+                self.c.add_data(todo)
+
+            elif n == 3:
+                id = input("Select Id: ")
+                self.c.remove_data(int(id))
+            
+            elif n == 4:
+                self.info()
+            
+            n = int(input("Select another option: "))
+
+    def info(self):
+        print("Welcome to TodoMVC")
+        print("1. To display todos")
+        print("2. To add todo")
+        print("3. To delete todo")
+        print("4. To display this info")
+        print("0. To exit")
+
+# Todo: properly abstract status option
+
+if __name__ == '__main__':
+    m = Model()
+    v = View()
+    c = Controller(m, v)
+
+    app = Application(m, v, c)
+
+    try:
+        app.main_loop()
+    except KeyboardInterrupt:
+        print("Exiting")
