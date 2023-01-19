@@ -30,7 +30,7 @@ class AccountBase {
         throw new Error("Must be implemented by a subclass");
     }
 
-    balance() {
+    balances() {
         return this.#balance
     }
 
@@ -89,7 +89,7 @@ class Bank {
     }
 
     total_amount() {
-        const total = this.#accounts.reduce((sum, acct) => sum + acct.balance(), 0);
+        const total = this.#accounts.reduce((sum, acct) => sum + acct.balances(), 0);
         return total
     }
 }
@@ -103,5 +103,5 @@ if (require.main === module) {
 
     console.log(`Bank total balance: ${b.total_amount()}`)
     acct1.deposit(8000)
-    // console.log(`Bank total balance: ${b.total_amount()}`)
+    console.log(`Bank total balance: ${b.total_amount()}`)
 }
