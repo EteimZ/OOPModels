@@ -103,5 +103,5 @@ if (require.main === module) {
 
     console.log(`Bank total balance: ${b.total_amount()}`)
     acct1.deposit(8000)
-    console.log(`Bank total balance: ${b.total_amount()}`)
+    // console.log(`Bank total balance: ${b.total_amount()}`)
 }
